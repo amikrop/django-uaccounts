@@ -1,5 +1,5 @@
 django-uaccounts
-===============
+================
 
 Pluggable user accounts and profiles
 -------------------------------------
