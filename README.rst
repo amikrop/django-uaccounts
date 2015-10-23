@@ -31,7 +31,7 @@ Installation
         ...
     )
 
-* Make sure you have a *django.contrib.sites.models.Site* instance saved in your database because **django-uaccounts** needs it to get the name and the domain of your site to include them in the verification emails.
+* Make sure you have a *django.contrib.sites.models.Site* instance saved in your database as **django-uaccounts** needs it to get the name and the domain of your site to include them in the verification emails.
 
 * Configure the email settings of your project as they are needed for sending the verification emails.
 
