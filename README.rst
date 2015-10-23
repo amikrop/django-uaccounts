@@ -1,7 +1,7 @@
 django-uaccounts
 ===============
 
-Pluggable user accounts and profiles.
+Pluggable user accounts and profiles
 -------------------------------------
 
 **django-uaccounts** is a pluggable Django app that provides

@@ -12,7 +12,7 @@ setup(
     version=uaccounts.__version__,
     author='Aristotelis Mikropoulos',
     author_email='amikrop@gmail.com',
-    description='Pluggable user accounts and profiles.',
+    description='Pluggable user accounts and profiles',
     long_description=README,
     license='BSD',
     url='https://github.com/amikrop/django-uaccounts',

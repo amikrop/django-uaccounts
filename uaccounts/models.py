@@ -61,8 +61,7 @@ class UserProfile(models.Model):
         new = self.pk is None
         super(UserProfile, self).save(*args, **kwargs)
         if new and self.user.email:
-            self.emails.create(address=self.user.email,
-                               primary=True, verified=True)
+            self.emails.create(address=self.user.email, primary=True)
 
 
 class EmailAddress(models.Model):
