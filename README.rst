@@ -70,21 +70,27 @@ to customize to your needs, and most probably *UACCOUNTS_HOME_URL* to
 connect this app with the rest of your project.
 
 - UACCOUNTS_HOME_URL: The "parent url". Can be an *str* or a call to *django.core.urlresolvers.reverse_lazy*.
+
     Default: *django.core.urlresolvers.reverse_lazy('uaccounts:index')*
 
 - UACCOUNTS_USERNAME_MIN_LENGTH: Minimum allowed characters for username.
+
     Default: *4*
 
 - UACCOUNTS_PASSWORD_MIN_LENGTH: Minimum allowed characters for password.
+
     Default: *6*
 
 - UACCOUNTS_STATUS_MAX_LENGTH: Maximum allowed characters for status.
+
     Default: *200*
 
 - UACCOUNTS_ACTIVATION_EXPIRES: Expiration time of an account activation request, in seconds. Can be an *int* or *None* for limitless time.
+
     Default: *24 \* 60 \* 60*
 
 - UACCOUNTS_CHANGE_PASSWORD_EXPIRES: Expiration time of a "forgot password" request, in seconds. Can be an *int* or *None* for limitless time.
+
     Default: *60 \* 60*
 
 - UACCOUNTS_VERIFICATION_EXPIRES: Expiration time of an email verification request, in seconds. Can be an *int* or *None* for limitless time.
