@@ -69,34 +69,34 @@ All of the app settings are optional but you may want to modify them
 to customize to your needs, and most probably *UACCOUNTS_HOME_URL* to
 connect this app with the rest of your project.
 
-- **UACCOUNTS_HOME_URL**: The "parent url". Can be an *str* or a call to *django.core.urlresolvers.reverse_lazy*.
+- **UACCOUNTS_HOME_URL** The "parent url". Can be an *str* or a call to *django.core.urlresolvers.reverse_lazy*.
     Default: *django.core.urlresolvers.reverse_lazy('uaccounts:index')*
 
-- **UACCOUNTS_USERNAME_MIN_LENGTH**: Minimum allowed characters for username.
+- **UACCOUNTS_USERNAME_MIN_LENGTH** Minimum allowed characters for username.
     Default: *4*
 
-- **UACCOUNTS_PASSWORD_MIN_LENGTH**: Minimum allowed characters for password.
+- **UACCOUNTS_PASSWORD_MIN_LENGTH** Minimum allowed characters for password.
     Default: *6*
 
-- **UACCOUNTS_STATUS_MAX_LENGTH**: Maximum allowed characters for status.
+- **UACCOUNTS_STATUS_MAX_LENGTH** Maximum allowed characters for status.
     Default: *200*
 
-- **UACCOUNTS_ACTIVATION_EXPIRES**: Expiration time of an account activation request, in seconds. Can be an *int* or *None* for limitless time.
+- **UACCOUNTS_ACTIVATION_EXPIRES** Expiration time of an account activation request, in seconds. Can be an *int* or *None* for limitless time.
     Default: *24 \* 60 \* 60*
 
-- **UACCOUNTS_CHANGE_PASSWORD_EXPIRES**: Expiration time of a "forgot password" request, in seconds. Can be an *int* or *None* for limitless time.
+- **UACCOUNTS_CHANGE_PASSWORD_EXPIRES** Expiration time of a "forgot password" request, in seconds. Can be an *int* or *None* for limitless time.
     Default: *60 \* 60*
 
-- **UACCOUNTS_VERIFICATION_EXPIRES**: Expiration time of an email verification request, in seconds. Can be an *int* or *None* for limitless time.
+- **UACCOUNTS_VERIFICATION_EXPIRES** Expiration time of an email verification request, in seconds. Can be an *int* or *None* for limitless time.
     Default: *None*
 
-- **UACCOUNTS_AVATAR_DIR**: Directory for uploading user avatars. It gets appended to your *MEDIA_ROOT*.
+- **UACCOUNTS_AVATAR_DIR** Directory for uploading user avatars. It gets appended to your *MEDIA_ROOT*.
     Default: *'avatars/'*
 
-- **UACCOUNTS_AVATAR_MAX_HEIGHT**: Maximum allowed height for user avatars, in pixels. Avatars get resized (kept in scale) if this is exceeded.
+- **UACCOUNTS_AVATAR_MAX_HEIGHT** Maximum allowed height for user avatars, in pixels. Avatars get resized (kept in scale) if this is exceeded.
     Default: *200*
 
-- **UACCOUNTS_AVATAR_MAX_WIDTH**: Maximum allowed width for user avatars, in pixels. Avatars get resized (kept in scale) if this is exceeded.
+- **UACCOUNTS_AVATAR_MAX_WIDTH** Maximum allowed width for user avatars, in pixels. Avatars get resized (kept in scale) if this is exceeded.
     Default: *200*
 
 License
