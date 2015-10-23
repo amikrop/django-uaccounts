@@ -1,0 +1,108 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/profile.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/edit.css' %}" />
+<script type="text/javascript" src="{% static 'uaccounts/js/jquery-2.1.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'uaccounts/js/js.cookie.js' %}"></script>
+<script type="text/javascript">
+    var primary_url = '{% url "uaccounts:primary-email" %}';
+    var remove_url = '{% url "uaccounts:remove-email" %}';
+    var verify_url = '{% url "uaccounts:verify-email" %}';
+    var add_url = '{% url "uaccounts:add-email" %}';
+</script>
+<script type="text/javascript" src="{% static 'uaccounts/js/edit.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="title">
+    {% if user.profile.avatar %}
+    <img src="{% get_media_prefix %}{{ user.profile.avatar }}" height="{{ user.profile.avatar.height }}" width="{{ user.profile.avatar.width }}" />
+    {% endif %}
+    <h1>{{ user }}</h1>
+</div>
+
+{% if form.non_field_errors %}
+<p class="error center">{{ form.non_field_errors }}</p>
+{% endif %}
+{% for field in form %}
+    {% for error in field.errors %}
+    <p class="error center">{{ error }}</p>
+    {% endfor %}
+{% endfor %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <div id="info">
+            <p><label for="first_name"><strong>First name</strong></label><input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" /></p>
+            <p><label for="last_name"><strong>Last name</strong></label><input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" /></p>
+            <p>
+                <label for="gender"><strong>Gender</strong></label>
+                <select id="gender" name="gender">
+                    <option value="-"{% if user.profile.gender == '-' %} selected="selected"{% endif %}>Unspecified</option>
+                    <option value="m"{% if user.profile.gender == 'm' %} selected="selected"{% endif %}>Male</option>
+                    <option value="f"{% if user.profile.gender == 'f' %} selected="selected"{% endif %}>Female</option>
+                </select>
+            </p>
+        </div>
+        <p>
+            <label for="id_date_of_birth_month"><strong>Date of birth</strong></label>
+            <span id="birth">
+                {{ form.date_of_birth }}
+            </span>
+        </p>
+        <p>
+            <label for="website"><strong>Website</strong></label>
+            <input type="text" id="website" name="website" value="{{ user.profile.website }}" />
+        </p>
+        <p>
+            <label for="avatar"><strong>Avatar</strong></label>
+            <input type="file" id="avatar" name="avatar" />
+            <input id="avatar-clear_id" name="avatar-clear" type="checkbox" /><label for="avatar-clear_id">Delete</label>
+        </p>
+        <p>
+            <label for="status"><strong>Status</strong></label>
+            <input type="text" id="status" name="status" value="{{ user.profile.status }}" />
+        </p>
+        <p id="emaillabel"><strong>Email address{{ count|pluralize:'es' }}</strong></p>
+        <p class="small{% if count == 1 %} hidden{% endif %}" id="primarylabel"><strong>Primary</strong></p>
+        <p class="address" id="primary" name="{{ primary.pk }}">{{ primary }}</p>
+        <div id="verified" class="nonprimary">
+            <p class="small{% if not secondary %} hidden{% endif %}" id="verifiedlabel"><strong>Verified</strong></p>
+            {% for email in secondary %}
+            <p class="address">
+                <span class="line">
+                    <span class="emailaddress" name="{{ email.pk }}">{{ email }}</span>
+                    <a href="" class="action delete">Delete</a>
+                    <a href="" class="action setprimary">Set primary</a>
+                </span>
+            </p>
+            {% endfor %}
+        </div>
+        <div id="unverified" class="nonprimary">
+            <p class="small{% if not unverified %} hidden{% endif %}" id="unverifiedlabel"><strong>Unverified</strong></p>
+            {% for email in unverified %}
+            <p class="address">
+                <span class="line">
+                    <span class="emailaddress" name="{{ email.pk }}">{{ email }}</span>
+                    <a href="" class="action delete">Delete</a>
+                    <a href="" class="action verify">Verify</a>
+                </span>
+            </p>
+            {% endfor %}
+        </div>
+        <p>
+            <input type="text" name="newemail" />
+            <a href="" id="add" class="small">Add</a>
+        </p>
+        <p id="submit">
+            <input type="submit" value="Save" />
+            <a href="{% url 'uaccounts:index' %}" id="canceledit">Cancel</a>
+        </p>
+    </div>
+</form>
+{% endblock %}

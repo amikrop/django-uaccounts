@@ -1,0 +1,12 @@
+{% extends 'uaccounts/base.html' %}
+
+{% block title %}Forgot password{% endblock %}
+
+{% block content %}
+<div class="inner">
+    <h1>Forgot password</h1>
+    <p>An email has been sent to {{ email }}</p>
+    <p>Please follow the included link to change your password.</p>
+    <p id="quit"><a href="{% url 'uaccounts:login' %}">Back</a></p>
+</div>
+{% endblock %}

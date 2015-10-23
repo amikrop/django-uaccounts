@@ -1,0 +1,13 @@
+{% extends 'uaccounts/base.html' %}
+
+{% block title %}Pending{% endblock %}
+
+{% block content %}
+<div class="inner">
+    <h1>Pending</h1>
+    <p>An email has been sent to {{ user.email }}</p>
+    <p>Please follow the included link to activate your account.</p>
+    <p>To resend the activation email, <a href="{% url 'uaccounts:send' %}">click here</a>.</p>
+    <p id="quit"><a href="{% url 'uaccounts:logout' %}">Logout</a></p>
+</div>
+{% endblock %}

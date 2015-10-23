@@ -1,0 +1,5 @@
+A password change request was made by refering this email address.<br />
+<br />
+In order to change your password please follow this link:<br />
+<br />
+<a href="{{ url }}">{{ url }}</a>

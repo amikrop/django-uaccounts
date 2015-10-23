@@ -1,0 +1,33 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Change password{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="form" class="inner">
+    <h1>Change password</h1>
+    {% for field in form %}
+        {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="new_password1">New password</label>
+            <input type="password" id="new_password1" name="new_password1" />
+        </p>
+        <p>
+            <label for="new_password2">Repeat password</label>
+            <input type="password" id="new_password2" name="new_password2" />
+        </p>
+        <p id="submit"><input type="submit" value="Change" /></p>
+    </form>
+    <p id="cancel"><a href="{% url 'uaccounts:login' %}">Cancel</a></p>
+</div>
+{% endblock %}

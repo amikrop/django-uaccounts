@@ -1,0 +1,5 @@
+Welcome to {{ name }}<br />
+<br />
+You have registered for an account. In order to activate it please follow this link:<br />
+<br />
+<a href="{{ url }}">{{ url }}</a>

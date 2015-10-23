@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: verdana, arial, sans-serif;
+    background-color: #e6eef0;
+}
+#main {
+    display: table;
+    position: relative;
+    margin: 2em auto 0;
+    padding: 2.5em 3em;
+    border: solid 1px;
+    border-radius: 1em;
+    background-color: white;
+}
+.inner {
+    position: relative;
+}
+h1, p {
+    margin-bottom: 1em;
+}
+a {
+    color: blue;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+.error {
+    margin-bottom: 1em;
+    color: red;
+    font-size: 0.9em;
+}
+input[type="text"], input[type="password"], input[type="email"], select {
+    padding: 0.1em;
+    border-radius: 0.5em;
+}
+input[type="submit"] {
+    padding: 0.09em 0.5em;
+}
+#submit {
+    position: relative;
+    margin-top: 2em;
+    margin-bottom: 0;
+    text-align: center;
+}
+#quit {
+    position: absolute;
+    top: 1.3em;
+    right: 0;
+    font-size: 0.9em;
+}
+#cancel {
+    position: absolute;
+    bottom: -0.8em;
+    right: -1em;
+    font-size: 0.9em;
+}

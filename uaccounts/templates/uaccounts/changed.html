@@ -1,0 +1,9 @@
+{% extends 'uaccounts/base.html' %}
+
+{% block title %}Password changed{% endblock %}
+
+{% block content %}
+<h1>Password changed</h1>
+<p>Your password has been changed.</p>
+<p>You can now <a href="{% url 'uaccounts:login' %}">login</a>.</p>
+{% endblock %}

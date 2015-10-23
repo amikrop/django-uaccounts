@@ -1,0 +1,44 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="form">
+    <h1>Login</h1>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% for field in form %}
+        {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" />
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" />
+        </p>
+        <div id="misc">
+            <p>
+                <label for="remember">Remember me</label>
+                <input type="checkbox" id="remember" name="remember" />
+            </p>
+            <p><a href="{% url 'uaccounts:forgot' %}">Forgot password?</a></p>
+            <p><a href="{% url 'uaccounts:register' %}">Create account</a></p>
+        </div>
+        <p id="submit"><input type="submit" value="Login" /></p>
+    </form>
+</div>
+{% endblock %}

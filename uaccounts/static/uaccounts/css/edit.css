@@ -1,0 +1,70 @@
+.center {
+    text-align: center;
+}
+form {
+    line-height: 150%;
+}
+#info {
+    display: inline-table;
+}
+#info input[type="text"], #info input[type="password"], #gender {
+    float: right;
+    margin-left: 0.8em;
+}
+#gender {
+    position: relative;
+    right: 6.1em;
+}
+#birth {
+    margin-left: 0.4em;
+}
+#website {
+    margin-left: 2.5em;
+}
+input[type="text"], input[type="password"], {
+    width: 13em;
+}
+#avatar-clear_id {
+    margin-right: 0.5em;
+}
+#status {
+    width: 25em;
+    margin-left: 0.8em;
+}
+#emaillabel {
+    margin-top: 1.5em;
+    margin-bottom: 0.7em;
+}
+.hidden {
+    display: none;
+}
+.address {
+    margin-top: -0.5em;
+}
+.line {
+    display: inline-block;
+    position: relative;
+}
+.action {
+    display: none;
+    position: absolute;
+    font-size: 0.9em;
+    top: 0.05em;
+}
+.delete {
+    right: -4em;
+}
+.setprimary {
+    right: -10.9em;
+}
+.verify {
+    right: -7.7em;
+}
+input[name="newemail"] {
+    margin-right: 0.8em;
+}
+#canceledit {
+    position: absolute;
+    right: 0;
+    font-size: 0.9em;
+}

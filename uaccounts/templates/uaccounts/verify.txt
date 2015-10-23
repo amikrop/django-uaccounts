@@ -1,0 +1,5 @@
+A verification request was made for this email address.<br />
+<br />
+In order to verify it please follow this link:<br />
+<br />
+<a href="{{ url }}">{{ url }}</a>

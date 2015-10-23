@@ -1,0 +1,33 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Forgot password{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/forgot.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="inner">
+    <h1>Forgot password</h1>
+    <p>You will be sent an email with a link to follow for changing your password.</p>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if error %}
+        <p class="error">Email address does not correspond to any user</p>
+        {% endif %}
+
+        {% for error in form.email.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+        <p>
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" />
+        </p>
+        <p><input type="submit" value="Send" /></p>
+    </form>
+    <p id="quit"><a href="{% url 'uaccounts:login' %}">Cancel</a></p>
+</div>
+{% endblock %}

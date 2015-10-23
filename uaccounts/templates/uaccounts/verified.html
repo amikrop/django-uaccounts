@@ -1,0 +1,11 @@
+{% extends 'uaccounts/base.html' %}
+
+{% block title %}Verified{% endblock %}
+
+{% block content %}
+<div class="inner">
+    <h1>Verified</h1>
+    <p>Email address {{ email }} has been verified.</p>
+    <p id="quit"><a href="{% url 'uaccounts:index' %}">Back</a></p>
+</div>
+{% endblock %}

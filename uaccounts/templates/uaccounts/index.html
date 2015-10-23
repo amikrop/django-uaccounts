@@ -1,0 +1,43 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/profile.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="title">
+    {% if user.profile.avatar %}
+    <img src="{% get_media_prefix %}{{ user.profile.avatar }}" height="{{ user.profile.avatar.height }}" width="{{ user.profile.avatar.width }}" />
+    {% endif %}
+    <h1>{{ user }}</h1>
+</div>
+<div>
+    {# Put in one line to activate CSS :empty if none of the following are set. #}
+    <div class="table" id="left">{% if user.get_full_name %}<p><strong>Name</strong> {{ user.get_full_name }}</p>{% endif %}{% if user.profile.gender != '-' %}<p><strong>Gender</strong> {{ user.profile.get_gender_display|capfirst }}</p>{% endif %}{% if user.profile.date_of_birth %}<p><strong>Date of birth</strong> {{ user.profile.date_of_birth|date:'j/n/Y' }}</p>{% endif %}{% if user.profile.status %}<p id="status-p"><strong>Status</strong> {{ user.profile.status }}</p>{% endif %}</div>
+    <div class="table">
+        {% if user.profile.website %}
+        <p>
+            <strong>Website</strong>
+            <a href="{{ user.profile.website }}">{{ user.profile.website }}</a>
+        </p>
+        {% endif %}
+        <p class="email"><strong>Email address{{ count|pluralize:'es' }}</strong></p>
+        <p class="email">{{ primary }}</p>
+        {% for email in secondary %}
+        <p class="email small">{{ email }}</p>
+        {% endfor %}
+    </p>
+    <div id="nav">
+        {% if home %}
+        <p><a href="{{ home }}">Home</a></p>
+        {% endif %}
+        <p><a href="{% url 'uaccounts:edit' %}">Edit profile</a></p>
+        <p><a href="{% url 'uaccounts:logout' %}">Logout</a></p>
+    </div>
+</div>
+{% endblock %}

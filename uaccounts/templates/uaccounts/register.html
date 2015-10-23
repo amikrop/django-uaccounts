@@ -1,0 +1,41 @@
+{% extends 'uaccounts/base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block head %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static 'uaccounts/css/form.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="form" class="inner">
+    <h1>Register</h1>
+    {% for field in form %}
+        {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" />
+        </p>
+        <p>
+            <label for="password1">Password</label>
+            <input type="password" id="password1" name="password1" />
+        </p>
+        <p>
+            <label for="password2">Repeat password</label>
+            <input type="password" id="password2" name="password2" />
+        </p>
+        <p>
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" />
+        </p>
+        <p id="submit"><input type="submit" value="Register" /></p>
+        <p id="quit"><a href="{% url 'uaccounts:login' %}">Cancel</a></p>
+    </form>
+</div>
+{% endblock %}

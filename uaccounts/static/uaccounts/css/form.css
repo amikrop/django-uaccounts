@@ -1,0 +1,15 @@
+#form input[type="text"], #form input[type="password"], #form input[type="email"] {
+    width: 13em;
+    float: right;
+    margin-left: 0.8em;
+}
+#misc {
+    margin-top: 2em;
+    font-size: 0.9em;
+}
+#misc p {
+    margin-bottom: 0.8em;
+}
+#form input[type="checkbox"] {
+    margin-left: 0.5em;
+}

@@ -1,0 +1,29 @@
+.table {
+    display: inline-table;
+    margin-top: 1em;
+}
+#left {
+    margin-right: 3em;
+}
+#left:empty {
+    display: none;
+}
+strong {
+    margin-right: 0.3em;
+}
+#status-p {
+    max-width: 21em;
+    line-height: 150%;
+    word-wrap: break-word;
+}
+.email {
+    margin-bottom: 0.6em;
+}
+#nav {
+    float: right;
+    margin-top: 2em;
+    font-size: 0.9em;
+}
+#nav p {
+    margin-bottom: 0.7em
+}
