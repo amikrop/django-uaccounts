@@ -236,11 +236,9 @@ def primary_email(request):
         return JsonResponse({'success': False,
                              'error': 'You do not have such an '
                                       'email address'})
-
     if email.primary:
         return JsonResponse({'success': False,
                              'error': 'Email address is already primary'})
-
     if not email.verified:
         return JsonResponse({'success': False,
                              'error': 'Cannot set as primary '
@@ -260,7 +258,6 @@ def remove_email(request):
         return JsonResponse({'success': False,
                              'error': 'You do not have such an '
                                       'email address'})
-
     if email.primary:
         return JsonResponse({'success': False,
                              'error': 'You cannot delete your primary '
@@ -280,7 +277,6 @@ def verify_email(request):
         return JsonResponse({'success': False,
                              'error': 'You do not have such an '
                                       'email address'})
-
     if email.verified:
         return JsonResponse({'success': False,
                              'error': 'Email address is already verified'})
