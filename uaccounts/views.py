@@ -19,6 +19,7 @@ def index(request, template_name='uaccounts/index.html'):
     """User's homepage.
 
     **context**
+
     - `primary`: primary email
     - `secondary`: list of verified emails
     - `unverified`: list of unverified emails
@@ -39,6 +40,7 @@ def log_in(request, template_name='uaccounts/login.html',
     If they are already logged in, redirect to index.
 
     **context**
+
     - `form`: login form
     - `error`: error message
     """
@@ -86,6 +88,7 @@ def register(request, template_name='uaccounts/register.html'):
     If they are logged in, redirect to index.
 
     **context**
+
     - `form`: registration form
     """
     form = forms.RegistrationForm()
@@ -146,6 +149,7 @@ def forgot(request, template_name='uaccounts/forgot.html',
     send the respective email, or just show the "forgot password" page.
 
     **context**
+
     - `email`: email address the mail was sent to
     - `form`: "forgot password" form
     - `error`: error message
@@ -180,6 +184,7 @@ def change(request, token,
     or try to change the password.
 
     **context**
+
     - `form`: "change password" form
     """
     try:
@@ -208,6 +213,7 @@ def edit(request, template_name='uaccounts/edit.html'):
     """Show "edit profile" page or process the profile editing.
 
     **context**
+
     - `form`: "edit profile" form
     """
     profile_form = forms.EditProfileForm(instance=request.user.profile)
