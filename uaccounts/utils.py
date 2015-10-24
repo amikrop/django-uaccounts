@@ -13,8 +13,8 @@ from uaccounts.models import VerificationCode
 
 
 def profile_emails(profile, get_unverified=False):
-    """Return a dict of users profile's emails,
-    divided in primary, rest and optionally unverified.
+    """Return a dict of user profile's emails,
+    divided into primary, rest and optionally unverified.
     Also pass their total count.
     """
     emails = profile.emails.filter(verified=True).order_by('-primary')
