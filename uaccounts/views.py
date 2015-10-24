@@ -1,4 +1,3 @@
-from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
@@ -15,30 +14,35 @@ from uaccounts.settings import (HOME_URL, ACTIVATION_EXPIRES,
                                 CHANGE_PASSWORD_EXPIRES, VERIFICATION_EXPIRES)
 
 
-class IndexView(TemplateView):
-    """User's homepage."""
-    template_name = 'uaccounts/index.html'
+@personal
+def index(request, template_name='uaccounts/index.html'):
+    """User's homepage.
 
-    def get_context_data(self, **kwargs):
-        """Add user's emails to the context.
-        If home URL is not this app's index, show a link to it.
-        """
-        context = super(IndexView, self).get_context_data(**kwargs)
+    context
+    -------
+    `primary`: primary email
+    `secondary`: list of verified emails
+    `unverified`: list of unverified emails
+    `count`: total email count
+    `home`: parent url
+    """
+    context = profile_emails(request.user.profile)
+    if HOME_URL != reverse('uaccounts:index'):
+        context['home'] = HOME_URL
 
-        context.update(profile_emails(self.request.user.profile))
-        if HOME_URL != reverse('uaccounts:index'):
-            context['home'] = HOME_URL
-
-        return context
-
-
-index = personal(IndexView.as_view())
+    return render(request, template_name, context)
 
 
 @guest
-def log_in(request):
+def log_in(request, template_name='uaccounts/login.html',
+           pending_template_name='uaccounts/pending.html'):
     """Show the login form, or log the user in.
     If they are already logged in, redirect to index.
+
+    context
+    -------
+    `form`: login form
+    `error`: error message
     """
     form = forms.LoginForm()
 
@@ -49,7 +53,7 @@ def log_in(request):
                                 password=form.cleaned_data['password'])
 
             if user is None:
-                return render(request, 'uaccounts/login.html',
+                return render(request, template_name,
                               {'form': forms.LoginForm(),
                                'error': 'Invalid username or password'})
 
@@ -63,13 +67,13 @@ def log_in(request):
                 login(request, user)
                 request.session.set_expiry(0)
                 return render(request,
-                              'uaccounts/pending.html', {'user': user})
+                              pending_template_name, {'user': user})
 
-            return render(request, 'uaccounts/login.html',
+            return render(request, template_name,
                           {'form': forms.LoginForm(),
                            'error': 'Account is inactive'})
 
-    return render(request, 'uaccounts/login.html', {'form': form})
+    return render(request, template_name, {'form': form})
 
 
 def log_out(request):
@@ -79,9 +83,13 @@ def log_out(request):
 
 
 @guest
-def register(request):
+def register(request, template_name='uaccounts/register.html'):
     """Show the registration form, or register a new user.
     If they are logged in, redirect to index.
+
+    context
+    -------
+    `form`: registration form
     """
     form = forms.RegistrationForm()
 
@@ -96,7 +104,7 @@ def register(request):
             request.session.set_expiry(0)
             return redirect('uaccounts:send')
 
-    return render(request, 'uaccounts/register.html', {'form': form})
+    return render(request, template_name, {'form': form})
 
 
 @pending
@@ -110,7 +118,7 @@ def send(request):
 
 
 @pending
-def activate(request, token):
+def activate(request, token, template_name='uaccounts/activated.html'):
     """Try to activate account using given token."""
     try:
         verification = verify_token(token, ACTIVATION_EXPIRES)
@@ -131,13 +139,20 @@ def activate(request, token):
 
     verification.delete()
     logout(request)
-    return render(request, 'uaccounts/activated.html')
+    return render(request, template_name)
 
 
 @guest
-def forgot(request):
+def forgot(request, template_name='uaccounts/forgot.html',
+           sent_template_name='uaccounts/forgotsent.html'):
     """Create a "forgot password" verification code and
     send the respective email, or just show the "forgot password" page.
+
+    context
+    -------
+    `email`: email address the mail was sent to
+    `form`: "forgot password" form
+    `error`: error message
     """
     form = forms.EmailAddressForm()
 
@@ -149,22 +164,28 @@ def forgot(request):
                 email = EmailAddress.objects.get(verified=True,
                                                  address=address)
             except EmailAddress.DoesNotExist:
-                return render(request, 'uaccounts/forgot.html',
+                return render(request, template_name,
                               {'form': forms.EmailAddressForm(),
                                'error': True})
 
             verification_mail(request, email,
                               'change password', 'forgot', 'change')
             return render(request,
-                          'uaccounts/forgotsent.html', {'email': email})
+                          sent_template_name, {'email': email})
 
-    return render(request, 'uaccounts/forgot.html', {'form': form})
+    return render(request, template_name, {'form': form})
 
 
 @guest
-def change(request, token):
+def change(request, token,
+           template_name='uaccounts/change.html',
+           changed_template_name='uaccounts/changed.html'):
     """If confirmation code is valid, show the password change form
     or try to change the password.
+
+    context
+    -------
+    `form`: "change password" form
     """
     try:
         verification = verify_token(token, CHANGE_PASSWORD_EXPIRES)
@@ -182,14 +203,19 @@ def change(request, token):
         if form.is_valid():
             form.save()
             verification.delete()
-            return render(request, 'uaccounts/changed.html')
+            return render(request, changed_template_name)
 
-    return render(request, 'uaccounts/change.html', {'form': form})
+    return render(request, template_name, {'form': form})
 
 
 @personal
-def edit(request):
-    """Show "edit profile" page or process the profile editing."""
+def edit(request, template_name='uaccounts/edit.html'):
+    """Show "edit profile" page or process the profile editing.
+
+    context
+    -------
+    `form`: "edit profile" form
+    """
     profile_form = forms.EditProfileForm(instance=request.user.profile)
     user_form = forms.EditUserForm(instance=request.user)
 
@@ -205,11 +231,11 @@ def edit(request):
     context = {'form': profile_form}
     context.update(profile_emails(request.user.profile, get_unverified=True))
 
-    return render(request, 'uaccounts/edit.html', context)
+    return render(request, template_name, context)
 
 
 @personal
-def verify(request, token):
+def verify(request, token, template_name='uaccounts/verified.html'):
     """Try to verify email address using given token."""
     try:
         verification = verify_token(token, VERIFICATION_EXPIRES)
@@ -223,13 +249,16 @@ def verify(request, token):
     verification.email.save()
 
     verification.delete()
-    return render(request, 'uaccounts/verified.html')
+    return render(request, template_name)
 
 
 @require_POST
 @personal
 def primary_email(request):
-    """Set an email address as user's primary. Used through AJAX."""
+    """Set an email address as user's primary. Used through AJAX.
+
+    POST data: `id`
+    """
     try:
         email = request.user.profile.emails.get(pk=request.POST.get('id'))
     except (EmailAddress.DoesNotExist, ValueError):
@@ -251,7 +280,10 @@ def primary_email(request):
 @require_POST
 @personal
 def remove_email(request):
-    """Remove an email address. Used through AJAX."""
+    """Remove an email address. Used through AJAX.
+
+    POST data: `id`
+    """
     try:
         email = request.user.profile.emails.get(pk=request.POST.get('id'))
     except (EmailAddress.DoesNotExist, ValueError):
@@ -270,7 +302,10 @@ def remove_email(request):
 @require_POST
 @personal
 def verify_email(request):
-    """Send email address verification mail. Used through AJAX."""
+    """Send email address verification mail. Used through AJAX.
+
+    POST data: `id`
+    """
     try:
         email = request.user.profile.emails.get(pk=request.POST.get('id'))
     except (EmailAddress.DoesNotExist, ValueError):
@@ -289,7 +324,10 @@ def verify_email(request):
 @require_POST
 @personal
 def add_email(request):
-    """Add new email address. Used through AJAX."""
+    """Add new email address. Used through AJAX.
+
+    POST data: `email`
+    """
     form = forms.EmailAddressForm(request.POST)
 
     if form.is_valid():
